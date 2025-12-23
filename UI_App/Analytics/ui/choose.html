@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select Analytics Module</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .fade-in { animation: fadeIn 0.6s ease-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        
+        .card-hover { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+        .card-hover:hover { 
+            transform: translateY(-8px); 
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+    </style>
+</head>
+
+<body class="bg-slate-50 min-h-screen flex items-center justify-center p-6">
+
+    <div class="max-w-5xl w-full fade-in">
+        <div class="text-center mb-12">
+            <h1 class="text-4xl font-extrabold text-slate-800 mb-3 tracking-tight">Analytics Center</h1>
+            <p class="text-slate-500 text-lg">Select a module to visualize performance metrics.</p>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-8">
+
+            <!-- Attendance Analytics Card -->
+            <div onclick="go('attendance')" class="card-hover bg-white rounded-3xl p-8 border border-slate-100 shadow-xl cursor-pointer group relative overflow-hidden">
+                <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-emerald-400 to-emerald-600"></div>
+                
+                <div class="flex items-start justify-between mb-6">
+                    <div class="p-4 bg-emerald-50 rounded-2xl text-emerald-600 group-hover:bg-emerald-600 group-hover:text-white transition-colors duration-300">
+                        <i class="fa-solid fa-clipboard-user text-3xl"></i>
+                    </div>
+                    <span class="bg-slate-100 text-slate-600 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wide">Module 01</span>
+                </div>
+                
+                <h2 class="text-2xl font-bold text-slate-800 mb-3 group-hover:text-emerald-600 transition-colors">Attendance Analytics</h2>
+                <p class="text-slate-500 leading-relaxed mb-6">
+                    Visualize daily trends, student regularity, and department-wise attendance heatmaps. Export comprehensive reports.
+                </p>
+                
+                <div class="flex items-center text-emerald-600 font-bold text-sm group-hover:translate-x-2 transition-transform">
+                    Explore Dashboard <i class="fa-solid fa-arrow-right ml-2"></i>
+                </div>
+            </div>
+
+            <!-- Marks Analytics Card -->
+            <div onclick="go('marks')" class="card-hover bg-white rounded-3xl p-8 border border-slate-100 shadow-xl cursor-pointer group relative overflow-hidden">
+                <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-indigo-400 to-indigo-600"></div>
+                
+                <div class="flex items-start justify-between mb-6">
+                    <div class="p-4 bg-indigo-50 rounded-2xl text-indigo-600 group-hover:bg-indigo-600 group-hover:text-white transition-colors duration-300">
+                        <i class="fa-solid fa-chart-line text-3xl"></i>
+                    </div>
+                    <span class="bg-slate-100 text-slate-600 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wide">Module 02</span>
+                </div>
+                
+                <h2 class="text-2xl font-bold text-slate-800 mb-3 group-hover:text-indigo-600 transition-colors">Marks & Results</h2>
+                <p class="text-slate-500 leading-relaxed mb-6">
+                    Analyze class performance, grade distributions, pass/fail rates, and identify top performers with interactive charts.
+                </p>
+                
+                <div class="flex items-center text-indigo-600 font-bold text-sm group-hover:translate-x-2 transition-transform">
+                    Explore Dashboard <i class="fa-solid fa-arrow-right ml-2"></i>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        function go(type){
+            if(type === 'attendance') {
+                window.location.href = "attendance.html"; 
+            } else {
+                // CHANGED: Now redirects to the real marks page instead of showing an alert
+                window.location.href = "marks.html";
+            }
+        }
+    </script>
+
+</body>
+</html>

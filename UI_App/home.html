@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>University Management System</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .fade-in {
+            animation: fadeIn 0.6s ease-out;
+        }
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        .card-hover:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+        }
+    </style>
+</head>
+<body class="gradient-bg min-h-screen">
+    <!-- Home Page -->
+    <div id="homePage" class="min-h-screen flex items-center justify-center p-4">
+        <div class="fade-in max-w-6xl w-full">
+            <div class="text-center mb-12">
+                <h1 class="text-5xl md:text-6xl font-bold text-white mb-4">University Management System</h1>
+                <p class="text-xl text-purple-100">Welcome to the Future of Education</p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                <!-- Student Portal Card -->
+                <div class="card-hover bg-white rounded-2xl shadow-2xl p-8 cursor-pointer" onclick="showLoginPage('student')">
+                    <div class="text-center">
+                        <div class="bg-blue-100 w-24 h-24 rounded-full flex items-center justify-center mx-auto mb-6">
+                            <svg class="w-12 h-12 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                            </svg>
+                        </div>
+                        <h2 class="text-3xl font-bold text-gray-800 mb-3">Student Portal</h2>
+                        <p class="text-gray-600 mb-6">Access your courses, grades, and academic information</p>
+                        <button class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-8 rounded-lg transition duration-300">
+                            Enter Portal
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Teacher Portal Card -->
+                <div class="card-hover bg-white rounded-2xl shadow-2xl p-8 cursor-pointer" onclick="showLoginPage('teacher')">
+                    <div class="text-center">
+                        <div class="bg-purple-100 w-24 h-24 rounded-full flex items-center justify-center mx-auto mb-6">
+                            <svg class="w-12 h-12 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                            </svg>
+                        </div>
+                        <h2 class="text-3xl font-bold text-gray-800 mb-3">Teacher Portal</h2>
+                        <p class="text-gray-600 mb-6">Manage classes, attendance, and student records</p>
+                        <button class="bg-purple-600 hover:bg-purple-700 text-white font-semibold py-3 px-8 rounded-lg transition duration-300">
+                            Enter Portal
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Student Login Page -->
+    <div id="studentLogin" class="hidden min-h-screen flex items-center justify-center p-4">
+        <div class="fade-in bg-white rounded-2xl shadow-2xl p-8 max-w-md w-full">
+            <div class="text-center mb-8">
+                <div class="bg-blue-100 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <svg class="w-10 h-10 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                    </svg>
+                </div>
+                <h2 class="text-3xl font-bold text-gray-800 mb-2">Student Login</h2>
+                <p class="text-gray-600">Enter your credentials to access the portal</p>
+            </div>
+
+            <form id="studentLoginForm" onsubmit="handleStudentLogin(event)">
+                <div class="mb-6">
+                    <label class="block text-gray-700 font-semibold mb-2">Username</label>
+                    <input type="text" id="studentUsername" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Enter 'student'" required>
+                </div>
+                <div class="mb-6">
+                    <label class="block text-gray-700 font-semibold mb-2">Roll Number</label>
+                    <input type="text" id="studentRollNo" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="e.g., 23-CS-70" required>
+                </div>
+                <div id="studentError" class="hidden mb-4 p-3 bg-red-100 text-red-700 rounded-lg text-sm"></div>
+                <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-lg transition duration-300 mb-4">
+                    Login
+                </button>
+                <button type="button" onclick="showHomePage()" class="w-full bg-gray-200 hover:bg-gray-300 text-gray-700 font-semibold py-3 rounded-lg transition duration-300">
+                    Back to Home
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Teacher Login Page -->
+    <div id="teacherLogin" class="hidden min-h-screen flex items-center justify-center p-4">
+        <div class="fade-in bg-white rounded-2xl shadow-2xl p-8 max-w-md w-full">
+            <div class="text-center mb-8">
+                <div class="bg-purple-100 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <svg class="w-10 h-10 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                    </svg>
+                </div>
+                <h2 class="text-3xl font-bold text-gray-800 mb-2">Teacher Login</h2>
+                <p class="text-gray-600">Enter your credentials to access the portal</p>
+            </div>
+
+            <form id="teacherLoginForm" onsubmit="handleTeacherLogin(event)">
+                <div class="mb-6">
+                    <label class="block text-gray-700 font-semibold mb-2">Username</label>
+                    <input type="text" id="teacherUsername" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500" placeholder="Enter 'teacher'" required>
+                </div>
+                <div class="mb-6">
+                    <label class="block text-gray-700 font-semibold mb-2">Password</label>
+                    <input type="password" id="teacherPassword" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500" placeholder="Enter 'staff'" required>
+                </div>
+                <div id="teacherError" class="hidden mb-4 p-3 bg-red-100 text-red-700 rounded-lg text-sm"></div>
+                <button type="submit" class="w-full bg-purple-600 hover:bg-purple-700 text-white font-semibold py-3 rounded-lg transition duration-300 mb-4">
+                    Login
+                </button>
+                <button type="button" onclick="showHomePage()" class="w-full bg-gray-200 hover:bg-gray-300 text-gray-700 font-semibold py-3 rounded-lg transition duration-300">
+                    Back to Home
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Teacher Dashboard -->
+    <div id="teacherDashboard" class="hidden min-h-screen p-6">
+        <div class="max-w-7xl mx-auto fade-in">
+            <div class="bg-white rounded-2xl shadow-lg p-6 mb-6">
+                <div class="flex justify-between items-center">
+                    <div>
+                        <h1 class="text-3xl font-bold text-gray-800">Teacher Dashboard</h1>
+                        <p class="text-gray-600">Welcome back, Professor</p>
+                    </div>
+                    <button onclick="logout()" class="bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-6 rounded-lg transition duration-300">
+                        Logout
+                    </button>
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-6">
+                <!-- Attendance Card -->
+                <div class="card-hover bg-white rounded-2xl shadow-lg p-8 cursor-pointer" onclick="showAttendanceManagement()">
+                    <div class="text-center">
+                        <div class="bg-green-100 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6">
+                            <svg class="w-10 h-10 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path>
+                            </svg>
+                        </div>
+                        <h2 class="text-2xl font-bold text-gray-800 mb-3">Attendance Management</h2>
+                        <p class="text-gray-600 mb-6">Mark and view student attendance records</p>
+                        <button class="bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-8 rounded-lg transition duration-300">
+                            Manage Attendance
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Result Card -->
+                <div class="card-hover bg-white rounded-2xl shadow-lg p-8 cursor-pointer" onclick="showResults()">
+                    <div class="text-center">
+                        <div class="bg-orange-100 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6">
+                            <svg class="w-10 h-10 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                            </svg>
+                        </div>
+                        <h2 class="text-2xl font-bold text-gray-800 mb-3">Result Management</h2>
+                        <p class="text-gray-600 mb-6">Upload and manage student results and grades</p>
+                        <button class="bg-orange-600 hover:bg-orange-700 text-white font-semibold py-3 px-8 rounded-lg transition duration-300">
+                            Manage Results
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Attendance Management Page -->
+    <div id="attendanceManagement" class="hidden min-h-screen p-6">
+        <div class="max-w-7xl mx-auto fade-in">
+            <div class="bg-white rounded-2xl shadow-lg p-6 mb-6">
+                <div class="flex justify-between items-center">
+                    <div>
+                        <h1 class="text-3xl font-bold text-gray-800">Attendance Management</h1>
+                        <p class="text-gray-600">Manage your class batches and attendance</p>
+                    </div>
+                    <button onclick="backToTeacherDashboard()" class="bg-gray-500 hover:bg-gray-600 text-white font-semibold py-2 px-6 rounded-lg transition duration-300">
+                        Back to Dashboard
+                    </button>
+                </div>
+            </div>
+
+            <!-- Batches List -->
+            <div id="batchesList" class="space-y-4 mb-6">
+                <div class="bg-white rounded-xl shadow-lg p-6">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-4">Your Batches</h2>
+                    <div id="batchesContainer" class="space-y-3">
+                        <div class="text-center py-8 text-gray-500">
+                            <svg class="w-16 h-16 mx-auto mb-4 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                            </svg>
+                            <p>No batches added yet. Click "Add New Batch" to get started.</p>
+                        </div>
+                    </div>
+                    <button onclick="showAddBatchForm()" class="mt-4 w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-3 rounded-lg transition duration-300">
+                        + Add New Batch
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Batch Form -->
+    <div id="addBatchForm" class="hidden min-h-screen p-6">
+        <div class="max-w-4xl mx-auto fade-in">
+            <div class="bg-white rounded-2xl shadow-lg p-8">
+                <h2 class="text-3xl font-bold text-gray-800 mb-6">Add New Batch</h2>
+                
+                <form onsubmit="uploadBatch(event)">
+                    <div class="mb-6">
+                        <label class="block text-gray-700 font-semibold mb-2">Batch Name</label>
+                        <input type="text" id="batchName" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500" placeholder="e.g., CS-5A Data Structures" required>
+                    </div>
+
+                    <div class="mb-6">
+                        <label class="block text-gray-700 font-semibold mb-2">Upload Student File (CSV or Excel)</label>
+                        <div class="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center">
+                            <input type="file" id="batchFile" accept=".csv,.xlsx,.xls" onchange="previewFile()" class="hidden">
+                            <label for="batchFile" class="cursor-pointer">
+                                <svg class="w-12 h-12 mx-auto mb-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
+                                </svg>
+                                <p class="text-gray-600 mb-2">Click to upload or drag and drop</p>
+                                <p class="text-sm text-gray-500">CSV or Excel files only</p>
+                            </label>
+                        </div>
+                        <div id="filePreview" class="hidden mt-4 p-4 bg-green-50 border border-green-200 rounded-lg">
+                            <p class="text-green-700 font-semibold">File uploaded successfully!</p>
+                            <p id="fileName" class="text-sm text-gray-600"></p>
+                        </div>
+                    </div>
+
+                    <div class="flex gap-4">
+                        <button type="submit" class="flex-1 bg-green-600 hover:bg-green-700 text-white font-semibold py-3 rounded-lg transition duration-300">
+                            Save Batch
+                        </button>
+                        <button type="button" onclick="cancelAddBatch()" class="flex-1 bg-gray-300 hover:bg-gray-400 text-gray-700 font-semibold py-3 rounded-lg transition duration-300">
+                            Cancel
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mark Attendance Page -->
+    <div id="markAttendance" class="hidden min-h-screen p-6">
+        <div class="max-w-7xl mx-auto fade-in">
+            <div class="bg-white rounded-2xl shadow-lg p-6 mb-6">
+                <div class="flex justify-between items-center">
+                    <div>
+                        <h1 class="text-3xl font-bold text-gray-800" id="attendanceBatchTitle"></h1>
+                        <p class="text-gray-600">Mark student attendance</p>
+                    </div>
+                    <button onclick="backToAttendanceManagement()" class="bg-gray-500 hover:bg-gray-600 text-white font-semibold py-2 px-6 rounded-lg transition duration-300">
+                        Back
+                    </button>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-xl shadow-lg p-6 mb-6">
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-gray-700 font-semibold mb-2">Date</label>
+                        <input type="date" id="attendanceDate" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500">
+                    </div>
+                    <div>
+                        <label class="block text-gray-700 font-semibold mb-2">Time</label>
+                        <input type="time" id="attendanceTime" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500">
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-xl shadow-lg p-6">
+                <div class="flex justify-between items-center mb-4">
+                    <h2 class="text-2xl font-bold text-gray-800">Students List</h2>
+                    <div class="flex gap-2">
+                        <button onclick="markAllPresent()" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg transition duration-300">
+                            Mark All Present
+                        </button>
+                        <button onclick="markAllAbsent()" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg transition duration-300">
+                            Mark All Absent
+                        </button>
+                    </div>
+                </div>
+
+                <div class="overflow-x-auto">
+                    <table class="w-full">
+                        <thead class="bg-gray-100">
+                            <tr>
+                                <th class="px-4 py-3 text-left text-gray-700 font-semibold">Roll No</th>
+                                <th class="px-4 py-3 text-left text-gray-700 font-semibold">Name</th>
+                                <th class="px-4 py-3 text-left text-gray-700 font-semibold">Section</th>
+                                <th class="px-4 py-3 text-left text-gray-700 font-semibold">Department</th>
+                                <th class="px-4 py-3 text-left text-gray-700 font-semibold">Semester</th>
+                                <th class="px-4 py-3 text-center text-gray-700 font-semibold">Attendance</th>
+                            </tr>
+                        </thead>
+                        <tbody id="studentsAttendanceTable">
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="flex gap-4 mt-6">
+                    <button onclick="saveAttendance()" class="flex-1 bg-green-600 hover:bg-green-700 text-white font-semibold py-3 rounded-lg transition duration-300">
+                        Save Attendance
+                    </button>
+                    <button onclick="downloadAttendance('csv')" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg transition duration-300">
+                        Download CSV
+                    </button>
+                    <button onclick="downloadAttendance('excel')" class="bg-purple-600 hover:bg-purple-700 text-white font-semibold py-3 px-6 rounded-lg transition duration-300">
+                        Download Excel
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Student Dashboard -->
+    <div id="studentDashboard" class="hidden min-h-screen p-6">
+        <div class="max-w-7xl mx-auto fade-in">
+            <div class="bg-white rounded-2xl shadow-lg p-6 mb-6">
+                <div class="flex justify-between items-center">
+                    <div>
+                        <h1 class="text-3xl font-bold text-gray-800">Student Dashboard</h1>
+                        <p class="text-gray-600">Roll No: <span id="studentRollDisplay"></span></p>
+                    </div>
+                    <button onclick="logout()" class="bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-6 rounded-lg transition duration-300">
+                        Logout
+                    </button>
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-6 mb-6">
+                <div class="bg-white rounded-xl shadow-lg p-6">
+                    <div class="flex items-center">
+                        <div class="bg-blue-100 p-3 rounded-lg">
+                            <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                            </svg>
+                        </div>
+                        <div class="ml-4">
+                            <p class="text-gray-600 text-sm">Total Courses</p>
+                            <p class="text-2xl font-bold text-gray-800">6</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-lg p-6">
+                    <div class="flex items-center">
+                        <div class="bg-green-100 p-3 rounded-lg">
+                            <svg class="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                        </div>
+                        <div class="ml-4">
+                            <p class="text-gray-600 text-sm">Attendance</p>
+                            <p class="text-2xl font-bold text-gray-800">85%</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-lg p-6">
+                    <div class="flex items-center">
+                        <div class="bg-purple-100 p-3 rounded-lg">
+                            <svg class="w-8 h-8 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"></path>
+                            </svg>
+                        </div>
+                        <div class="ml-4">
+                            <p class="text-gray-600 text-sm">CGPA</p>
+                            <p class="text-2xl font-bold text-gray-800">3.45</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-xl shadow-lg p-6">
+                <h2 class="text-2xl font-bold text-gray-800 mb-4">Your Courses</h2>
+                <div class="space-y-4">
+                    <div class="border-l-4 border-blue-500 pl-4 py-3 bg-gray-50 rounded">
+                        <h3 class="font-semibold text-gray-800">Data Structures</h3>
+                        <p class="text-sm text-gray-600">CS-201 • Prof. Ahmed Khan</p>
+                    </div>
+                    <div class="border-l-4 border-green-500 pl-4 py-3 bg-gray-50 rounded">
+                        <h3 class="font-semibold text-gray-800">Database Systems</h3>
+                        <p class="text-sm text-gray-600">CS-301 • Prof. Sara Ali</p>
+                    </div>
+                    <div class="border-l-4 border-purple-500 pl-4 py-3 bg-gray-50 rounded">
+                        <h3 class="font-semibold text-gray-800">Web Development</h3>
+                        <p class="text-sm text-gray-600">CS-305 • Prof. Hassan Raza</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
+    <script>
+        let currentUser = { role: '', rollNo: '' };
+        let batches = [];
+        let currentBatch = null;
+        let currentStudents = [];
+
+        function showHomePage() {
+            document.getElementById('homePage').classList.remove('hidden');
+            document.getElementById('studentLogin').classList.add('hidden');
+            document.getElementById('teacherLogin').classList.add('hidden');
+            document.getElementById('teacherDashboard').classList.add('hidden');
+            document.getElementById('studentDashboard').classList.add('hidden');
+            document.getElementById('attendanceManagement').classList.add('hidden');
+            document.getElementById('addBatchForm').classList.add('hidden');
+            document.getElementById('markAttendance').classList.add('hidden');
+        }
+
+        function showLoginPage(role) {
+            document.getElementById('homePage').classList.add('hidden');
+            if (role === 'student') {
+                document.getElementById('studentLogin').classList.remove('hidden');
+            } else {
+                document.getElementById('teacherLogin').classList.remove('hidden');
+            }
+        }
+
+        function handleStudentLogin(e) {
+            e.preventDefault();
+            const username = document.getElementById('studentUsername').value.toLowerCase();
+            const rollNo = document.getElementById('studentRollNo').value;
+            const errorDiv = document.getElementById('studentError');
+
+            const rollNoPattern = /^\d{2}-[A-Z]{2,4}-\d{1,3}$/i;
+
+            if (username !== 'student') {
+                errorDiv.textContent = 'Username must be "student"';
+                errorDiv.classList.remove('hidden');
+                return;
+            }
+
+            if (!rollNoPattern.test(rollNo)) {
+                errorDiv.textContent = 'Invalid roll number format (e.g., 23-CS-70)';
+                errorDiv.classList.remove('hidden');
+                return;
+            }
+
+            currentUser = { role: 'student', rollNo: rollNo };
+            document.getElementById('studentRollDisplay').textContent = rollNo;
+            document.getElementById('studentLogin').classList.add('hidden');
+            document.getElementById('studentDashboard').classList.remove('hidden');
+        }
+
+        function handleTeacherLogin(e) {
+            e.preventDefault();
+            const username = document.getElementById('teacherUsername').value.toLowerCase();
+            const password = document.getElementById('teacherPassword').value.toLowerCase();
+            const errorDiv = document.getElementById('teacherError');
+
+            if (username !== 'teacher' || password !== 'staff') {
+                errorDiv.textContent = 'Invalid credentials. Use username: "teacher" and password: "staff"';
+                errorDiv.classList.remove('hidden');
+                return;
+            }
+
+            currentUser = { role: 'teacher' };
+            document.getElementById('teacherLogin').classList.add('hidden');
+            document.getElementById('teacherDashboard').classList.remove('hidden');
+        }
+
+        function showAttendanceManagement() {
+            document.getElementById('teacherDashboard').classList.add('hidden');
+            document.getElementById('attendanceManagement').classList.remove('hidden');
+            renderBatches();
+        }
+
+        function backToTeacherDashboard() {
+            document.getElementById('attendanceManagement').classList.add('hidden');
+            document.getElementById('teacherDashboard').classList.remove('hidden');
+        }
+
+        function showAddBatchForm() {
+            document.getElementById('attendanceManagement').classList.add('hidden');
+            document.getElementById('addBatchForm').classList.remove('hidden');
+        }
+
+        function cancelAddBatch() {
+            document.getElementById('addBatchForm').classList.add('hidden');
+            document.getElementById('attendanceManagement').classList.remove('hidden');
+            document.getElementById('batchName').value = '';
+            document.getElementById('batchFile').value = '';
+            document.getElementById('filePreview').classList.add('hidden');
+        }
+
+        function previewFile() {
+            const fileInput = document.getElementById('batchFile');
+            const file = fileInput.files[0];
+            if (file) {
+                document.getElementById('filePreview').classList.remove('hidden');
+                document.getElementById('fileName').textContent = `File: ${file.name}`;
+            }
+        }
+
+        function parseCSV(text) {
+            const result = Papa.parse(text, { header: true, skipEmptyLines: true });
+            return result.data;
+        }
+
+        function parseExcel(data) {
+            const workbook = XLSX.read(data, { type: 'binary' });
+            const firstSheet = workbook.Sheets[workbook.SheetNames[0]];
+            return XLSX.utils.sheet_to_json(firstSheet);
+        }
+
+        function uploadBatch(e) {
+            e.preventDefault();
+            const batchName = document.getElementById('batchName').value;
+            const fileInput = document.getElementById('batchFile');
+            const file = fileInput.files[0];
+
+            if (!file) {
+                alert('Please select a file');
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                let students = [];
+                
+                if (file.name.endsWith('.csv')) {
+                    students = parseCSV(e.target.result);
+                } else {
+                    students = parseExcel(e.target.result);
+                }
+
+                const batch = {
+                    id: Date.now(),
+                    name: batchName,
+                    students: students,
+                    attendanceRecords: []
+                };
+
+                batches.push(batch);
+                
+                document.getElementById('addBatchForm').classList.add('hidden');
+                document.getElementById('attendanceManagement').classList.remove('hidden');
+                document.getElementById('batchName').value = '';
+                document.getElementById('batchFile').value = '';
+                document.getElementById('filePreview').classList.add('hidden');
+                
+                renderBatches();
+            };
+
+            if (file.name.endsWith('.csv')) {
+                reader.readAsText(file);
+            } else {
+                reader.readAsBinaryString(file);
+            }
+        }
+
+        function renderBatches() {
+            const container = document.getElementById('batchesContainer');
+            
+            if (batches.length === 0) {
+                container.innerHTML = `
+                    <div class="text-center py-8 text-gray-500">
+                        <svg class="w-16 h-16 mx-auto mb-4 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                        </svg>
+                        <p>No batches added yet. Click "Add New Batch" to get started.</p>
+                    </div>
+                `;
+            } else {
+                container.innerHTML = batches.map(batch => `
+                    <div class="border border-gray-200 rounded-lg p-4 hover:bg-gray-50 transition duration-300 cursor-pointer" onclick="openBatch(${batch.id})">
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <h3 class="text-lg font-semibold text-gray-800">${batch.name}</h3>
+                                <p class="text-sm text-gray-600">${batch.students.length} students • ${batch.attendanceRecords.length} attendance records</p>
+                            </div>
+                            <svg class="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                            </svg>
+                        </div>
+                    </div>
+                `).join('');
+            }
+        }
+
+        function openBatch(batchId) {
+            currentBatch = batches.find(b => b.id === batchId);
+            currentStudents = currentBatch.students.map(s => ({ ...s, present: false }));
+            
+            document.getElementById('attendanceManagement').classList.add('hidden');
+            document.getElementById('markAttendance').classList.remove('hidden');
+            document.getElementById('attendanceBatchTitle').textContent = currentBatch.name;
+            
+            const today = new Date();
+            document.getElementById('attendanceDate').valueAsDate = today;
+            document.getElementById('attendanceTime').value = today.toTimeString().slice(0, 5);
+            
+            renderAttendanceTable();
+        }
+
+        function renderAttendanceTable() {
+            const tbody = document.getElementById('studentsAttendanceTable');
+            tbody.innerHTML = currentStudents.map((student, index) => `
+                <tr class="border-b hover:bg-gray-50">
+                    <td class="px-4 py-3">${student.rollno || student.RollNo || student['Roll No'] || ''}</td>
+                    <td class="px-4 py-3">${student.name || student.Name || ''}</td>
+                    <td class="px-4 py-3">${student.section || student.Section || ''}</td>
+                    <td class="px-4 py-3">${student.department || student.Department || ''}</td>
+                    <td class="px-4 py-3">${student.semester || student.Semester || ''}</td>
+                    <td class="px-4 py-3 text-center">
+                        <label class="inline-flex items-center cursor-pointer">
+                            <input type="checkbox" ${student.present ? 'checked' : ''} onchange="toggleAttendance(${index})" class="w-6 h-6 text-green-600 border-gray-300 rounded focus:ring-green-500">
+                            <span class="ml-2 ${student.present ? 'text-green-600 font-semibold' : 'text-gray-500'}">
+                                ${student.present ? 'Present' : 'Absent'}
+                            </span>
+                        </label>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function toggleAttendance(index) {
+            currentStudents[index].present = !currentStudents[index].present;
+            renderAttendanceTable();
+        }
+
+        function markAllPresent() {
+            currentStudents = currentStudents.map(s => ({ ...s, present: true }));
+            renderAttendanceTable();
+        }
+
+        function markAllAbsent() {
+            currentStudents = currentStudents.map(s => ({ ...s, present: false }));
+            renderAttendanceTable();
+        }
+
+        function saveAttendance() {
+            const date = document.getElementById('attendanceDate').value;
+            const time = document.getElementById('attendanceTime').value;
+            
+            if (!date || !time) {
+                alert('Please select date and time');
+                return;
+            }
+
+            const attendanceRecord = {
+                date: date,
+                time: time,
+                students: currentStudents.map(s => ({
+                    ...s,
+                    status: s.present ? 'Present' : 'Absent'
+                }))
+            };
+
+            currentBatch.attendanceRecords.push(attendanceRecord);
+            alert('Attendance saved successfully!');
+            backToAttendanceManagement();
+        }
+
+        function downloadAttendance(format) {
+            const date = document.getElementById('attendanceDate').value;
+            const time = document.getElementById('attendanceTime').value;
+            
+            const data = currentStudents.map(s => ({
+                'Roll No': s.rollno || s.RollNo || s['Roll No'] || '',
+                'Name': s.name || s.Name || '',
+                'Section': s.section || s.Section || '',
+                'Department': s.department || s.Department || '',
+                'Semester': s.semester || s.Semester || '',
+                'Status': s.present ? 'Present' : 'Absent',
+                'Date': date,
+                'Time': time
+            }));
+
+            if (format === 'csv') {
+                const csv = Papa.unparse(data);
+                const blob = new Blob([csv], { type: 'text/csv' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `attendance_${currentBatch.name}_${date}.csv`;
+                a.click();
+            } else {
+                const ws = XLSX.utils.json_to_sheet(data);
+                const wb = XLSX.utils.book_new();
+                XLSX.utils.book_append_sheet(wb, ws, 'Attendance');
+                XLSX.writeFile(wb, `attendance_${currentBatch.name}_${date}.xlsx`);
+            }
+        }
+
+        function backToAttendanceManagement() {
+            document.getElementById('markAttendance').classList.add('hidden');
+            document.getElementById('attendanceManagement').classList.remove('hidden');
+            currentBatch = null;
+            currentStudents = [];
+        }
+
+        function showResults() {
+            alert('Results management page will be created next!');
+        }
+
+        function logout() {
+            currentUser = { role: '', rollNo: '' };
+            showHomePage();
+            document.getElementById('studentLoginForm').reset();
+            document.getElementById('teacherLoginForm').reset();
+            document.getElementById('studentError').classList.add('hidden');
+            document.getElementById('teacherError').classList.add('hidden');
+        }
+    </script>
+</body>
+</html>
